@@ -20,8 +20,11 @@ namespace DataAccessLayer.Repositories
 
         public void Create(Car car)
         {
-            _ctx.Cars.Add(car);
-            _ctx.SaveChanges();
+            if (IsLessThanTwoSpaces(car.Name) && IsUniqueName(car))
+            {
+                _ctx.Cars.Add(car);
+                _ctx.SaveChanges();
+            }
         }
 
         public void Delete(int id)
@@ -37,21 +40,55 @@ namespace DataAccessLayer.Repositories
             return _ctx.Cars.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<Car> GetCars()
+        public IEnumerable<Car> GetAll()
         {
             return _ctx.Cars.Include(x => x.Details).AsNoTracking().ToList();
         }
 
         public void Update(Car car)
         {
-            var carToUpdate = _ctx.Cars.Include(x => x.Details).FirstOrDefault(x => x.Id == car.Id);
+            if (IsLessThanTwoSpaces(car.Name) && IsUniqueName(car))
+            {
+                var carToUpdate = _ctx.Cars.Include(x => x.Details).FirstOrDefault(x => x.Id == car.Id);
 
-            carToUpdate.Manufacturer = car.Manufacturer;
-            carToUpdate.Name = car.Name;
+                carToUpdate.Manufacturer = car.Manufacturer;
+                carToUpdate.Name = car.Name;
+                carToUpdate.ManufacturerId = car.ManufacturerId;
+                carToUpdate.Details = car.Details.Select(x => new Detail { Name = x.Name, DetailType = x.DetailType, Price = x.Price }).ToList();
 
-            carToUpdate.Details = car.Details.Select(x=> new Detail { Name = x.Name}).ToList();
+                _ctx.SaveChanges();
+            }
+        }
 
-            _ctx.SaveChanges();
+        public Car GetMostExpenciveCarByManufacturerId(int id)
+        {
+            var mostExpenciveCar = _ctx.Cars.Where(x => x.ManufacturerId == id)
+                                       .OrderByDescending(x => x.Details.Sum(y => y.Price))
+                                       .FirstOrDefault();
+
+            return mostExpenciveCar;
+
+        }
+
+        private string RemoveMultiplyWhiteSpaces(string str)
+        {
+            var wordsArray = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string resultedString = string.Join(" ", wordsArray);
+            return resultedString;
+        }
+
+        private bool IsLessThanTwoSpaces(string str)
+        {
+            char c = ' ';
+            var result = str.Count(x => x == c) <= 2;
+            return result;
+        }
+
+        private bool IsUniqueName(Car model)
+        {
+            var cars = _ctx.Cars.Include(x => x.Details).AsNoTracking().ToList();
+            var result = cars.All(x => x.Name != model.Name);
+            return result;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.Interfaces
 {
-    interface IDetailService
+    public interface IDetailService
     {
         void Create(DetailModel detailModel);
         void Update(DetailModel detailModel);

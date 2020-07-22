@@ -55,7 +55,7 @@ namespace BusinessLogicLayer.Services
 
         public IEnumerable<DetailModel> GetDetails()
         {
-            var details = detailRepository.GetDetails();
+            var details = detailRepository.GetAll();
             var detailModels = details.Select(d => new DetailModel
             {
                 Id = d.Id,

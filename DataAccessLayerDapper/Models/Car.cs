@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Models
+namespace DataAccessLayerDapper.Models
 {
     public class Car
     {
@@ -16,8 +16,7 @@ namespace DataAccessLayer.Models
         public string Name { get; set; }
         public int ManufacturerId { get; set; }
 
-        public virtual ICollection<Detail> Details { get; set; }
-        public Manufacturer Manufacturer { get; set; }
+        public ICollection<Detail> Details { get; set; }
 
     }
 }

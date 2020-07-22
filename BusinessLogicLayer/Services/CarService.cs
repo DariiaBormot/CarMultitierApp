@@ -47,6 +47,7 @@ namespace BusinessLogicLayer.Services
         public CarModel GetById(int id)
         {
             var car = carRepository.GetById(id);
+
             var carModel = new CarModel
             {
                 Id = car.Id,
@@ -69,7 +70,7 @@ namespace BusinessLogicLayer.Services
 
         public IEnumerable<CarModel> GetCars()
         {
-            var cars = carRepository.GetCars();
+            var cars = carRepository.GetAll();
             var carModels = cars.Select(car => new CarModel()
             {
                 Id = car.Id,
@@ -111,30 +112,28 @@ namespace BusinessLogicLayer.Services
             carRepository.Update(car);
         }
 
-        public IEnumerable<CarModel> GetMostExpensiveCars()
+        public CarModel GetMostExpensiveCarByManufacturerId(int id)
         {
-            var cars = carRepository.GetCars();
-            var carsViews = cars.Select(car => new CarModel()
+            var car = carRepository.GetMostExpenciveCarByManufacturerId(id);
+
+            var carModel = new CarModel
             {
                 Id = car.Id,
                 Name = car.Name,
-                TotalPrice = car.Details.Sum(x => x.Price),
                 ManufacturerId = car.ManufacturerId,
-                Details = car.Details.Select(detail => new DetailModel()
+                TotalPrice = car.Details.Sum(x => x.Price),
+                Details = car.Details.Select(x => new DetailModel
                 {
-                    Id = detail.Id,
-                    CarId = detail.CarId,
-                    Name = detail.Name,
-                    Price = detail.Price,
-                    DetailTypeId = detail.DetailTypeId,
-                    ManufacturerId = detail.ManufacturerId
-                })
-            });
+                    Id = x.Id,
+                    CarId = x.CarId,
+                    Name = x.Name,
+                    Price = x.Price,
+                    ManufacturerId = x.ManufacturerId,
+                    DetailTypeId = x.DetailTypeId
 
-            var result = carsViews.GroupBy(x => x.ManufacturerId)
-                            .Select(c => c.OrderByDescending(y => y.TotalPrice).First());
-
-            return result;
+                }).ToList()
+            };
+            return carModel;
         }
 
     }

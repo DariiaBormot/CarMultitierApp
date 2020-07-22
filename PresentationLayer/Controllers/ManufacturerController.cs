@@ -12,9 +12,7 @@ namespace PresentationLayer.Controllers
 {
     public class ManufacturerController : IManufacturerController
     {
-
-        public IManufacturerService manufacturerService;
-
+        private readonly IManufacturerService manufacturerService;
         public ManufacturerController()
         {
             manufacturerService = new ManufacturerService();

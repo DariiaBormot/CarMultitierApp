@@ -2,12 +2,8 @@
 using BusinessLogicLayer.Services;
 using PresentationLayer.Interfaces;
 using PresentationLayer.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
 {
@@ -19,17 +15,7 @@ namespace PresentationLayer.Controllers
         {
             carService = new CarService();
         }
-        public void Create(CarViewModel carView)
-        {
-            var carModels = carService.GetCars().ToList();
-
-            if (IsUniqueName(carView, carModels)&&LessThanTwoSpaces(carView.Name))
-            {
-                CreateCar(carView);
-            }
-        }
-
-        private void CreateCar(CarViewModel model)
+        public void Create(CarViewModel model)
         {
             var carModel = new CarModel()
             {
@@ -48,19 +34,6 @@ namespace PresentationLayer.Controllers
                 })
             };
             carService.Create(carModel);
-        }
-
-        private bool LessThanTwoSpaces(string str)
-        {
-            char c = ' ';
-            var result =  str.Count(x => x == c) <= 2;
-            return result;
-        }
-
-        private bool IsUniqueName(CarViewModel model, List<CarModel> models)
-        {
-            var result =  models.All(x => x.Name != model.Name);
-            return result; 
         }
 
         public void Delete(int id)
@@ -133,28 +106,28 @@ namespace PresentationLayer.Controllers
             carService.Update(carModel);
         }
 
-        public IEnumerable<CarViewModel> GetMostExpensiveCars()
+        public CarViewModel GetMostExpensiveCarByManufacturerId(int id)
         {
-            var cars = carService.GetMostExpensiveCars();
-            var carsViews = cars.Select(car => new CarViewModel()
+            var car = carService.GetMostExpensiveCarByManufacturerId(id);
+
+            var carViewModel = new CarViewModel()
             {
                 Id = car.Id,
                 Name = car.Name,
                 ManufacturerId = car.ManufacturerId,
                 TotalPrice = car.TotalPrice,
-                Details = car.Details.Select(detail => new DetailViewModel()
+                Details = car.Details.Select(d => new DetailViewModel()
                 {
-                    Id = detail.Id,
-                    CarId = detail.CarId,
-                    Name = detail.Name,
-                    Price = detail.Price,
-                    DetailTypeId = detail.DetailTypeId,
-                    ManufacturerId = detail.ManufacturerId
+                    Id = d.Id,
+                    CarId = d.CarId,
+                    Name = d.Name,
+                    Price = d.Price,
+                    DetailTypeId = d.DetailTypeId,
+                    ManufacturerId = d.ManufacturerId
                 })
+            };
 
-            });
-
-            return carsViews;
+            return carViewModel;
         }
     }
 

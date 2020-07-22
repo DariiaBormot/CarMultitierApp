@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Models
+namespace DataAccessLayerADONET.Models
 {
     public class Detail
     {
@@ -12,11 +12,7 @@ namespace DataAccessLayer.Models
         public string Name { get; set; }
         public int Price { get; set; }
         public int CarId { get; set; }
-        public int ManufacturerId { get; set; }
         public int DetailTypeId { get; set; }
-
-        public virtual DetailType DetailType { get; set; }
-        public Manufacturer Manufacturer { get; set; }
-        public virtual Car Car { get; set; }
+        public int ManufacturerId { get; set; }
     }
 }

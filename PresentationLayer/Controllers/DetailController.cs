@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer.Models;
 using BusinessLogicLayer.Services;
+using BusinessLogicLayer.Interfaces;
 using PresentationLayer.Interfaces;
 using PresentationLayer.Models;
 using System;
@@ -12,7 +13,7 @@ namespace PresentationLayer.Controllers
 {
     public  class DetailController : IDetailController
     {
-        private DetailService detailService;
+        private readonly IDetailService detailService;
         public DetailController()
         {
             detailService = new DetailService();

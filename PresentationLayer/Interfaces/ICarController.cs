@@ -14,6 +14,6 @@ namespace PresentationLayer.Interfaces
         void Delete(int id);
         CarViewModel GetById(int id);
         IEnumerable<CarViewModel> GetCars();
-        IEnumerable<CarViewModel> GetMostExpensiveCars();
+        CarViewModel GetMostExpensiveCarByManufacturerId(int id);
     }
 }

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ThreeTierAppEntityFramework")]
+[assembly: AssemblyTitle("DataAccessLayerDapper")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ThreeTierAppEntityFramework")]
+[assembly: AssemblyProduct("DataAccessLayerDapper")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8f7bb96d-dc25-44af-a634-756196e2c0ef")]
+[assembly: Guid("3e8a3392-fbea-4a21-bef7-25f9983eda87")]
 
 // Version information for an assembly consists of the following four values:
 //

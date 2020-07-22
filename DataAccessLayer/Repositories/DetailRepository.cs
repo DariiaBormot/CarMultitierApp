@@ -29,7 +29,7 @@ namespace DataAccessLayer.Repositories
             _ctx.SaveChanges();
         }
 
-        public IEnumerable<Detail> GetDetails()
+        public IEnumerable<Detail> GetAll()
         {
             return _ctx.Details.AsNoTracking().ToList();
 
@@ -47,6 +47,8 @@ namespace DataAccessLayer.Repositories
 
             detailToUpdate.CarId = detail.CarId;
             detailToUpdate.Name = detail.Name;
+            detailToUpdate.Price = detail.Price;
+            detailToUpdate.ManufacturerId = detail.ManufacturerId;
 
             _ctx.SaveChanges();
         }

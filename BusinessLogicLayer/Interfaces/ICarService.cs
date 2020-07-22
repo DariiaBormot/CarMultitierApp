@@ -14,6 +14,6 @@ namespace BusinessLogicLayer.Interfaces
         void Delete(int id);
         CarModel GetById(int id);
         IEnumerable<CarModel> GetCars();
-        IEnumerable<CarModel> GetMostExpensiveCars();
+        CarModel GetMostExpensiveCarByManufacturerId(int id);
     }
 }

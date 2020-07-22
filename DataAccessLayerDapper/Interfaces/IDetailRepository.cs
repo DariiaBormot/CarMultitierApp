@@ -1,18 +1,19 @@
-﻿using DataAccessLayer.Models;
+﻿using DataAccessLayerDapper.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Interfaces
+namespace DataAccessLayerDapper.Interfaces
 {
-    interface IDetailRepository
+    public interface IDetailRepository
     {
         void Create(Detail detail);
-        void Update(Detail detail);
+        void Update(Detail item);
         void Delete(int id);
-        Detail GetDetalById(int id);
+        Detail GetById(int id);
         IEnumerable<Detail> GetAll();
+
     }
 }
